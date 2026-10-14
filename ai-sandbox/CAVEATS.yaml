@@ -1,0 +1,199 @@
+# panel-response-imputation — Caveats register
+#
+# Data and tool traps: things that produce a plausible, wrong answer without an error.
+# Search by `subject` before touching what it names — this file is found, not read start to end.
+#
+# Append-only. Never regenerated, and NOT subject to the delete-on-resolve rule the rest of this
+# system follows (P-024): a trap does not stop being true when it is "closed", only its data
+# moves. Fix it in place with `corrected:` / `superseded_by:`, never delete the entry.
+#
+# Fields:
+#   id        C-<slug>. Assigned once, never renamed (same reason as S-<slug> and EXP-<slug>).
+#   subject   The lookup key: a table, a column, a script path. What you'd grep for.
+#   kind      Free text — e.g. `table`, `tool`. Deliberately no fixed dictionary: a trap in the
+#             project's own instrument (kind: tool) behaves exactly like a data trap and belongs
+#             in the same list, not a separate section.
+#   severity  critical | moderate | minor. `critical` means one thing only: fails silently — no
+#             error, no empty-result warning, just a wrong answer that looks fine. Not "important",
+#             not "frequent".
+#   what      What actually happens, in prose.
+#   found     Date discovered.
+#   basis     EXP-… / sessions/… / S-… — or `—` if genuinely none exists. Never point at the
+#             nearest similar entry when there isn't one; `—` is a legitimate value.
+#   status    (optional) confirmed | inferred | unverified-by-design.
+#   verify    (optional) Required when status is `inferred`: the name of the specific check that
+#             would settle it — not a confidence word. Legitimately absent when
+#             unverified-by-design (there is nothing to check by construction).
+#   corrected / superseded_by  (optional) How this was addressed, without deleting the record.
+
+- id: C-life-changes-blank-means-none
+  subject: survey.csv:Q-life-changes
+  kind: table
+  severity: critical
+  what: >
+    Blank in 3,384 of 5,027 rows (67.3%) — the only column in survey.csv with blanks. The
+    question is "mark all that apply", so blank most likely means "none of these happened", not a
+    missing answer. Treating it as missing drops two thirds of panelists or imputes an answer that
+    was in fact given.
+  found: 2026-10-14
+  basis: sessions/2026-10-14-project-scoping.md
+  status: inferred
+  verify: read the question in survey-instrument.pdf and check whether a "none" option existed
+
+- id: C-life-changes-multiselect-encoding
+  subject: survey.csv:Q-life-changes
+  kind: table
+  severity: moderate
+  what: >
+    Multi-select answers are stored as one comma-joined string (23 distinct combinations), and at
+    least one option carries a trailing space ("Lost a job "). Exact string matching on the raw
+    value, or on an untrimmed split, silently misses panelists. Five atomic options observed:
+    moved place of residence, lost a job, had a child, became pregnant, divorce.
+  found: 2026-10-14
+  basis: sessions/2026-10-14-project-scoping.md
+  status: confirmed
+
+- id: C-prefer-not-to-say-hidden-missing
+  subject: survey.csv
+  kind: table
+  severity: moderate
+  what: >
+    The survey has no blank cells outside Q-life-changes, but several questions carry a
+    "Prefer not to say" option (income 76, education 32, gender 11, and others) — real item
+    nonresponse hidden as a category. Spelling differs between questions ("Prefer not to say"
+    vs "prefer not to say"), so a case-sensitive filter catches only some of them.
+  found: 2026-10-14
+  basis: sessions/2026-10-14-project-scoping.md
+  status: confirmed
+
+- id: C-purchases-title-category-comissing
+  subject: amazon-purchases.csv:Title, amazon-purchases.csv:Category
+  kind: table
+  severity: moderate
+  what: >
+    Title and Category are empty together in 88,832 rows (~4.8%) while the ASIN is present; the
+    two are almost never missing alone (Title only: 908 rows, Category only: 626). Likely
+    products no longer listed, so the gap is not random. Category-based features silently
+    undercount these panelists' purchases unless an explicit "unknown" bucket is kept.
+  found: 2026-10-14
+  basis: sessions/2026-10-14-project-scoping.md
+  status: inferred
+  verify: look up a sample of affected ASINs and check whether they are delisted
+
+- id: C-purchases-shipping-state-missing
+  subject: amazon-purchases.csv:Shipping Address State
+  kind: table
+  severity: minor
+  what: >
+    Empty in 87,812 rows (4.7%), mostly independent of the Title/Category gap.
+  found: 2026-10-14
+  basis: sessions/2026-10-14-project-scoping.md
+  status: confirmed
+
+- id: C-purchases-history-window
+  subject: amazon-purchases.csv:Order Date
+  kind: table
+  severity: critical
+  what: >
+    Observation windows differ per panelist. First purchases cluster at the start of the data
+    window (median 2018-01-27), so histories are left-truncated; last purchases range roughly
+    2022-09 to 2023-03 (p10–p90), with a few as late as 2024-08. History span is ~1,125 days at
+    p10 and ~1,771 at the median. Per-period aggregates (spend per week, purchases per month)
+    computed over a fixed calendar range make short-history panelists look like light buyers.
+  found: 2026-10-14
+  basis: sessions/2026-10-14-project-scoping.md
+  status: confirmed
+
+- id: C-purchases-category-label-noise
+  subject: amazon-purchases.csv:Category
+  kind: table
+  severity: moderate
+  what: >
+    Category labels can disagree with the product: a micro-USB charging cable is labelled
+    COMPUTER_PROCESSOR in the first rows of the file. 1,872 distinct categories, long-tailed —
+    the top 100 cover 52% of rows, the top 500 cover 87%. How often labels are wrong is unknown.
+  found: 2026-10-14
+  basis: sessions/2026-10-14-project-scoping.md
+  status: inferred
+  verify: hand-label a random sample of rows against Title and measure the disagreement rate
+
+- id: C-precommit-hook-allows-archives
+  subject: .githooks/pre-commit
+  kind: tool
+  severity: critical
+  what: >
+    The hook blocks .csv, .parquet, .pkl, .xlsx, .feather and .h5, but not .zip or .pdf. The raw
+    dataset arrives as a 103 MB .zip with PDFs inside, so `git add .` would stage it with no
+    warning; GitHub then rejects the push (100 MB per-file limit) after the file is already in
+    local history. The guard is `data/` in .gitignore, not the hook.
+  found: 2026-10-14
+  basis: sessions/2026-10-14-project-scoping.md
+  status: confirmed
+
+- id: C-installer-email-todo-false-positive
+  subject: install.sh (rnd-project-memory v3.5.0)
+  kind: tool
+  severity: minor
+  what: >
+    When user.email is already configured (here: globally) and no email argument is passed, the
+    installer reports "user.email ... already set, left alone" and then still lists setting
+    user.email as a todo, because the final check tests the argument rather than the effective
+    value. The todo can be ignored when `git config user.email` prints an address.
+  found: 2026-10-14
+  basis: sessions/2026-10-14-project-scoping.md
+  status: confirmed
+
+- id: C-claude-md-shadows-agents-md
+  subject: AGENTS.md
+  kind: tool
+  severity: critical
+  what: >
+    Claude Code loads AGENTS.md (and through it RULES.md, INDEX.md, ASSISTANT_PROFILE.md) only
+    while no CLAUDE.md, .claude/CLAUDE.md or CLAUDE.local.md exists in the working directory or
+    above it. Creating any of them silently switches loading to that file, and every rule in
+    this system disappears from sessions with no error. If a CLAUDE.md is ever needed, it must
+    contain `@AGENTS.md`.
+  found: 2026-10-14
+  basis: S-claude-code-memory-docs
+  status: confirmed
+
+- id: C-jev-option-order-bias
+  subject: jev-1.13
+  kind: tool
+  severity: critical
+  what: >
+    Vendor documentation states jev-1.13 "leans toward the option that comes first". With a
+    fixed option order, every question's predictions are shifted toward its first listed answer.
+    Mitigation: permute option order and average the probabilities.
+  found: 2026-10-14
+  basis: S-typesafe-docs
+  status: inferred
+  verify: on validation panelists, compare probabilities for the same question under two option orders
+
+- id: C-jev-numbers-and-dates
+  subject: jev-1.13
+  kind: tool
+  severity: moderate
+  what: >
+    Vendor documentation states jev-1.13 does not count reliably, struggles with numeric
+    precision, reads dates as text rather than ordered quantities, and loses accuracy as
+    unrelated material is added to the state ("context rot"). Raw purchase lists or raw numeric
+    aggregates in the state give plausible but degraded answers; aggregates should be computed in
+    code and passed as labelled bins.
+  found: 2026-10-14
+  basis: S-typesafe-docs
+  status: inferred
+  verify: on validation panelists, compare accuracy with raw numbers vs binned labels in the state
+
+- id: C-jev-context-budget
+  subject: jev-1.13
+  kind: tool
+  severity: moderate
+  what: >
+    The state plus the longest question must fit in 32k tokens. Product titles alone come to
+    roughly 6k tokens for the median panelist, ~22k at p90, and exceed ~30k for 247 panelists
+    (estimate: characters / 4), so full purchase histories cannot be passed for everyone.
+  found: 2026-10-14
+  basis: S-typesafe-docs
+  status: inferred
+  verify: count tokens with the vendor's tokenizer or API usage field rather than the chars/4 estimate

@@ -1,0 +1,7 @@
+[project]
+name = "panel-response-imputation"
+version = "0.1.0"
+description = "Imputing a panelist's missing survey responses from demographics and purchase history, benchmarked against donor hot-deck"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
