@@ -20,6 +20,10 @@ from pypdf import PdfReader
 QUESTION = "Q-life-changes"
 
 
+def normalize_pdf_text(text: str) -> str:
+    return " ".join(text.split())
+
+
 def digest(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
@@ -102,7 +106,7 @@ def main() -> None:
     encoded = [encode_selection(value, options) for value in raw_values]
     fields = list(csv.reader(io.StringIO(fields_bytes.decode("utf-8-sig"))))
     multi_questions = [row for row in fields[1:] if any(term in row[1].lower() for term in ("all that apply", "one or more"))]
-    pdf_pages = [page.extract_text() for page in PdfReader(io.BytesIO(pdf_bytes)).pages]
+    pdf_pages = [normalize_pdf_text(page.extract_text()) for page in PdfReader(io.BytesIO(pdf_bytes)).pages]
     local_pdf_text = Path("data/raw/survey-instrument-extracted.txt")
     local_pdf_text.write_text("\n\n".join(f"PAGE {i + 1}\n{text}" for i, text in enumerate(pdf_pages)))
     result = {
@@ -128,6 +132,8 @@ def main() -> None:
             "roundtrip_nonblank_ok": all({part.strip() for part in raw.split(",")} == {option for option, flag in zip(options, flags) if flag == 1} for raw, flags in zip(raw_values, encoded) if raw.strip()),
         },
         "instrument_pages_to_review": [i + 1 for i, text in enumerate(pdf_pages) if "life changes" in text.lower()],
+        "instrument_none_option_on_life_changes_page": any("none of the above" in text.lower() for text in pdf_pages if "life changes" in text.lower()),
+        "csv_explicit_none_rows": sum("none of the above" in value.lower() for value in raw_values),
         "synthetic_only": synthetic_example(),
         "scope": "Encoding audit of full survey, no model training, split selection or test performance evaluation. Synthetic metrics are not dataset performance.",
     }

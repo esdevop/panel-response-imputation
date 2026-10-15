@@ -5,8 +5,15 @@ import pytest
 from src.experiments.multiselect_contracts import (
     encode_selection,
     evaluate_synthetic,
+    normalize_pdf_text,
     synthetic_example,
 )
+
+
+def test_pdf_search_normalizes_word_linebreaks():
+    text = normalize_pdf_text("life\nchanges?\nNone\nof\nthe\nabove")
+    assert "life changes" in text
+    assert "None of the above" in text
 
 
 def test_blank_is_unknown():
