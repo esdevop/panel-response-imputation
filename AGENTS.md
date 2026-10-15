@@ -47,6 +47,10 @@ never infer it from commit history or from another file.
 If the project has CI, run the same secret scan there as well. It is the only layer that does not
 depend on how an individual clone is configured.
 
-## Commits
+## Task-specific instructions
 
-Conventional Commits. Types used here: `docs`, `feat`, `fix`, `refactor`, `chore`, `exp`.
+Read the relevant guide before the matching action; do not load all guides at session start.
+
+| Before | Required guide |
+|--------|----------------|
+| Drafting a commit message or creating a commit | `contributor-guides/commits.md` |
