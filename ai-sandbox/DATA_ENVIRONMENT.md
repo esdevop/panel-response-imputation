@@ -61,7 +61,9 @@ before touching a table, column, or tool this project relies on.
 ## Environment
 
 Python 3.13 with a project-level `uv` environment (`.venv` in the project root,
-`pyproject.toml` + `uv.lock`). Not yet created on 2026-10-14 — no dependencies added so far.
+`pyproject.toml` + `uv.lock`). Created on 2026-10-15 for
+`EXP-2026-10-15-multiselect-contracts`: Python 3.13.7, Polars 2.0.0;
+dev dependencies pytest 9.1.1 and pypdf 6.20.1. Exact versions are locked in `uv.lock`.
 
 ```bash
 uv sync                                   # create/refresh the environment from uv.lock
@@ -73,5 +75,14 @@ uv add <package>                          # add a dependency, updating uv.lock
 
 ## Run recipes
 
-<Verified commands for common tasks: pulling a slice, running a baseline, exporting results.
-Each one that works is one less thing to rediscover.>
+Encoding audit and synthetic contract checks (no model evaluation):
+
+```bash
+uv run --locked pytest -q
+uv run --locked python src/experiments/multiselect_contracts.py --output results/multiselect-contracts-rerun.json
+```
+
+Use a new output filename for each recorded rerun; preserve previous result artifacts.
+The script reads the frozen archive and generates only aggregate/synthetic JSON results.
+Extracted instrument text stays under gitignored `data/raw/`. See
+`experiments/EXP-2026-10-15-multiselect-contracts.md` for snapshot hashes and limitations.

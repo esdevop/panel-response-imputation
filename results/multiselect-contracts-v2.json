@@ -1,0 +1,165 @@
+{
+  "question": "Can blank life-change selections be distinguished from no selected options?",
+  "prior": "Explicit coding or instrument evidence may distinguish missing from none; otherwise inconclusive.",
+  "git_sha": "9e9027a6a11509484aa8c7c817dde5eda15af067",
+  "read_at_utc": "2026-10-15T15:55:53.270486+00:00",
+  "archive_sha256": "cfdf3aebd0d6d3516e28a927446a4ecf9d4ea751eb6b3dc436924042fde239c6",
+  "member_sha256": {
+    "survey.csv": "ac9c733b2948daeeb35638ab2771ae9f3c5055b8a1d224c19308a8d768c7d103",
+    "fields.csv": "efc8cd46cb8508cdeb41b908cf6964ca953755e7d1b339e1ccadc839b62f636e",
+    "survey-instrument.pdf": "1dfa140af73a722fb80a8d2449305e839b52c774c700d9a49889c05c4ccd4e40"
+  },
+  "uv_lock_sha256": "20570fbc44d81f1794051ac61105faa5826c1c46deba46e5e81c2704dce5c4b6",
+  "python": "3.13.7",
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "packages": {
+    "polars": "2.0.0",
+    "pytest": "9.1.1",
+    "pypdf": "6.20.1"
+  },
+  "n_rows": 5027,
+  "blank_by_column": {
+    "Survey ResponseID": 0,
+    "Q-demos-age": 0,
+    "Q-demos-hispanic": 0,
+    "Q-demos-race": 0,
+    "Q-demos-education": 0,
+    "Q-demos-income": 0,
+    "Q-demos-gender": 0,
+    "Q-sexual-orientation": 0,
+    "Q-demos-state": 0,
+    "Q-amazon-use-howmany": 0,
+    "Q-amazon-use-hh-size": 0,
+    "Q-amazon-use-how-oft": 0,
+    "Q-substance-use-cigarettes": 0,
+    "Q-substance-use-marijuana": 0,
+    "Q-substance-use-alcohol": 0,
+    "Q-personal-diabetes": 0,
+    "Q-personal-wheelchair": 0,
+    "Q-life-changes": 3384,
+    "Q-sell-YOUR-data": 0,
+    "Q-sell-consumer-data": 0,
+    "Q-small-biz-use": 0,
+    "Q-census-use": 0,
+    "Q-research-society": 0
+  },
+  "refusal_by_column": {
+    "Survey ResponseID": 0,
+    "Q-demos-age": 0,
+    "Q-demos-hispanic": 0,
+    "Q-demos-race": 0,
+    "Q-demos-education": 32,
+    "Q-demos-income": 76,
+    "Q-demos-gender": 11,
+    "Q-sexual-orientation": 58,
+    "Q-demos-state": 0,
+    "Q-amazon-use-howmany": 0,
+    "Q-amazon-use-hh-size": 0,
+    "Q-amazon-use-how-oft": 0,
+    "Q-substance-use-cigarettes": 12,
+    "Q-substance-use-marijuana": 47,
+    "Q-substance-use-alcohol": 23,
+    "Q-personal-diabetes": 16,
+    "Q-personal-wheelchair": 11,
+    "Q-life-changes": 0,
+    "Q-sell-YOUR-data": 0,
+    "Q-sell-consumer-data": 0,
+    "Q-small-biz-use": 0,
+    "Q-census-use": 0,
+    "Q-research-society": 0
+  },
+  "multi_select_questions_from_wording": [
+    [
+      "Q-demos-race",
+      "Choose one or more races that you consider yourself to be"
+    ],
+    [
+      "Q-life-changes",
+      "In 2021 did you, or someone you share your Amazon account with, experience any of the following life changes?\n\nPlease mark all that apply."
+    ]
+  ],
+  "life_changes": {
+    "n_blank": 3384,
+    "n_distinct_nonblank_combinations": 22,
+    "options": [
+      "Became pregnant",
+      "Divorce",
+      "Had a child",
+      "Lost a job",
+      "Moved place of residence"
+    ],
+    "whitespace_affected_rows": 596,
+    "binary_counts_conservative": {
+      "Became pregnant": {
+        "0": 1498,
+        "None": 3384,
+        "1": 145
+      },
+      "Divorce": {
+        "0": 1579,
+        "None": 3384,
+        "1": 64
+      },
+      "Had a child": {
+        "0": 1484,
+        "None": 3384,
+        "1": 159
+      },
+      "Lost a job": {
+        "1": 596,
+        "None": 3384,
+        "0": 1047
+      },
+      "Moved place of residence": {
+        "0": 552,
+        "None": 3384,
+        "1": 1091
+      }
+    },
+    "roundtrip_nonblank_ok": true
+  },
+  "instrument_pages_to_review": [
+    10
+  ],
+  "instrument_none_option_on_life_changes_page": true,
+  "csv_explicit_none_rows": 0,
+  "synthetic_only": {
+    "metrics_by_target": [
+      {
+        "target_id": "a",
+        "metric_id": "accuracy",
+        "value": 1.0,
+        "n_expected": 2,
+        "n_eligible": 1,
+        "status": "ok",
+        "reason": null
+      },
+      {
+        "target_id": "b",
+        "metric_id": "accuracy",
+        "value": 1.0,
+        "n_expected": 2,
+        "n_eligible": 2,
+        "status": "ok",
+        "reason": null
+      },
+      {
+        "target_id": "c",
+        "metric_id": "accuracy",
+        "value": 0.0,
+        "n_expected": 2,
+        "n_eligible": 2,
+        "status": "ok",
+        "reason": null
+      }
+    ],
+    "summary": {
+      "target_macro": 0.6666666666666666,
+      "question_macro": 0.5,
+      "n_observations": 5,
+      "n_targets": 3
+    }
+  },
+  "scope": "Encoding audit of full survey, no model training, split selection or test performance evaluation. Synthetic metrics are not dataset performance.",
+  "duration_seconds": 0.3802241049997974
+}

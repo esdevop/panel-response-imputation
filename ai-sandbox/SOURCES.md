@@ -37,7 +37,9 @@ anything whose sensitivity has not been established.
 - **Source date:** not recorded; files inside the archive are dated 2026-10-14
 - **Date read:** 2026-10-14
 - **Sensitivity:** reference-only — raw data, never committed (`data/` is in `.gitignore`)
-- **Status:** partial — CSVs profiled; the two survey-instrument PDFs not yet read
+- **Status:** partial — main survey instrument text inspected on 2026-10-15, especially
+  page 10; prescreen instrument not yet read. See EXP-2026-10-15-multiselect-contracts for
+  the main instrument hash, encoding audit and limitations.
 - **Answers:** what is observed per panelist (survey answers, purchase history), column semantics
   (`fields.csv`), how questions were asked (`survey-instrument.pdf`, `prescreen-survey-instrument.pdf`)
 - **Notes:** contents — `survey.csv` (5,027 panelists × 23 columns), `amazon-purchases.csv`

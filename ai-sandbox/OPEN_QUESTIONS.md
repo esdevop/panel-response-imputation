@@ -46,11 +46,12 @@ permanently. The handbook's §11 says why, and an adoption note in this file sho
 - **Raised:** 2026-10-14 · **Owner:** esdevop
 - **Source:** sessions/2026-10-14-project-scoping.md
 - **Question:** which columns of `survey.csv` form the demographic profile given to every method,
-  and which form the hidden response profile; whether Q-life-changes is split into its five
-  atomic options
+  and which form the hidden response profile
 - **Why it matters:** blocks the feature table, the target table and every baseline
 - **Progress:** the eight `Q-demos-*` columns are the natural profile; Q-sexual-orientation is
-  ambiguous (not `Q-demos-*`, but demographic in kind)
+  ambiguous (not `Q-demos-*`, but demographic in kind). On 2026-10-15, binary representation
+  of multi-select targets was agreed; blank Q-life-changes maps to five eligible zeros.
+  See sessions/2026-10-14-modular-research-stack.md. Full column assignment remains open.
 
 ## Q-sensitive-targets · Whether sensitive survey items should be imputation targets 🔴
 

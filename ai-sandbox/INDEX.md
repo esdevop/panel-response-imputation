@@ -1,6 +1,6 @@
 # panel-response-imputation — Session Index
 
-- **Updated:** 2026-10-14
+- **Updated:** 2026-10-15
 
 Entry point for every session. Loaded automatically through `AGENTS.md`.
 
@@ -48,11 +48,13 @@ Entry point for every session. Loaded automatically through `AGENTS.md`.
 
 ## Current focus
 
-Build the lower rungs of the method ladder — a shared panelist feature table, a fixed
-train / validation / test split, and the random-donor, mode and cell-mode baselines — so that any
-later method (k-NN, GBM, TabPFN, Jev) is measured against a known floor. Blocked on decisions
-recorded in `OPEN_QUESTIONS.md`: which survey columns are the demographic profile and which are
-targets, and whether accuracy alone is the metric.
+Implement the first baseline slice (random donor and mode) using the modular draft in
+`sessions/2026-10-14-modular-research-stack.md`. Architecture discussion is sufficient to start
+implementation; choose the concrete targets, refusal-label policy and fixed split specification
+before a recorded run. Life-change blanks now map to five eligible zeros. Environment and
+encoding tests exist; the runner and split do not. Start with common per-target validation
+metrics; broader features, cell-mode and additional metrics can follow. See
+`CHECKPOINT-baseline-ladder.md` and `OPEN_QUESTIONS.md` for remaining decisions.
 
 ---
 

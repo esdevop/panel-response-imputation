@@ -31,21 +31,27 @@
   kind: table
   severity: critical
   what: >
-    Blank in 3,384 of 5,027 rows (67.3%) — the only column in survey.csv with blanks. The
-    question is "mark all that apply", so blank most likely means "none of these happened", not a
-    missing answer. Treating it as missing drops two thirds of panelists or imputes an answer that
-    was in fact given.
+    Blank in 3,384 of 5,027 rows — the only survey column with blank cells in the
+    2026-10-15 audit. The instrument explicitly offers "None of the above" (page 10), but
+    the published CSV contains no explicit occurrence of that option. The earlier blank-means-none
+    interpretation remains unproven. Neither automatic zeros nor classification as genuine
+    nonresponse is justified without export/cleaning evidence; excluding blanks may select
+    participants who experienced an event.
   found: 2026-10-14
   basis: sessions/2026-10-14-project-scoping.md
   status: inferred
-  verify: read the question in survey-instrument.pdf and check whether a "none" option existed
+  verify: inspect original export/cleaning logic or obtain author clarification of blank encoding
+  corrected: >
+    2026-10-15, EXP-2026-10-15-multiselect-contracts: a none option does exist; static instrument
+    inspection alone did not resolve the CSV mapping. Counts re-derived in the repository.
 
 - id: C-life-changes-multiselect-encoding
   subject: survey.csv:Q-life-changes
   kind: table
   severity: moderate
   what: >
-    Multi-select answers are stored as one comma-joined string (23 distinct combinations), and at
+    Multi-select answers are stored as one comma-joined string (22 distinct nonblank raw
+    combinations in EXP-2026-10-15-multiselect-contracts; blank is a separate state), and at
     least one option carries a trailing space ("Lost a job "). Exact string matching on the raw
     value, or on an untrimmed split, silently misses panelists. Five atomic options observed:
     moved place of residence, lost a job, had a child, became pregnant, divorce.

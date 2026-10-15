@@ -16,3 +16,4 @@ Check here before running anything: the cheapest experiment is the one already r
 
 | ID | Date | Question | Tags | Verdict | Link |
 |----|------|----------|------|---------|------|
+| EXP-2026-10-15-multiselect-contracts | 2026-10-15 | Can blank life-change responses be distinguished from explicit none? | #data #contracts #missingness | inconclusive — instrument offers none, CSV has blanks but no explicit none; synthetic contract tests pass | [record](EXP-2026-10-15-multiselect-contracts.md) |
