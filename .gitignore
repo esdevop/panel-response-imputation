@@ -14,9 +14,6 @@ __pycache__/
 # Raw and derived data — obtained from the source registered in ai-sandbox/SOURCES.md, never committed
 data/
 
-# Personal AI setup
-ai-sandbox/personal/
-
 # ─── UPSTREAM BLOCK — rnd-project-memory; replaced on upgrade, do not edit below ───
 
 # Never commit — see ai-sandbox/SOURCES.md
