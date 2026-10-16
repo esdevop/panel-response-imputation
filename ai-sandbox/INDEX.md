@@ -1,6 +1,6 @@
 # panel-response-imputation — Session Index
 
-- **Updated:** 2026-10-15
+- **Updated:** 2026-10-16
 
 Entry point for every session. Loaded automatically through `AGENTS.md`.
 
@@ -43,18 +43,17 @@ Entry point for every session. Loaded automatically through `AGENTS.md`.
 | Thread | Held by (`user.email`) | Status | Since |
 |--------|---------|--------|-------|
 | `baseline-ladder` | esdevop@gmail.com | active | 2026-10-14 |
+| `response-signal` | esdevop@gmail.com | active | 2026-10-16 |
 
 ---
 
 ## Current focus
 
-Implement the first baseline slice (random donor and mode) using the modular draft in
-`sessions/2026-10-14-modular-research-stack.md`. Architecture discussion is sufficient to start
-implementation; choose the concrete targets, refusal-label policy and fixed split specification
-before a recorded run. Life-change blanks now map to five eligible zeros. Environment and
-encoding tests exist; the runner and split do not. Start with common per-target validation
-metrics; broader features, cell-mode and additional metrics can follow. See
-`CHECKPOINT-baseline-ladder.md` and `OPEN_QUESTIONS.md` for remaining decisions.
+Primary thread: implement the first baseline slice (random donor and mode) using the modular draft in
+`sessions/2026-10-14-modular-research-stack.md`; see `CHECKPOINT-baseline-ladder.md` and
+`OPEN_QUESTIONS.md` for remaining decisions. A second active thread, `response-signal`, is paused
+until the user's resolution of `Q-sensitive-targets` is documented; then open a follow-up session
+and specify a falsifiable item-level signal analysis. See `CHECKPOINT-response-signal.md`.
 
 ---
 
