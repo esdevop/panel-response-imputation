@@ -37,15 +37,21 @@ anything whose sensitivity has not been established.
 - **Source date:** not recorded; files inside the archive are dated 2026-10-14
 - **Date read:** 2026-10-14
 - **Sensitivity:** reference-only — raw data, never committed (`data/` is in `.gitignore`)
-- **Status:** partial — main survey instrument text inspected on 2026-10-15, especially
-  page 10; prescreen instrument not yet read. See EXP-2026-10-15-multiselect-contracts for
-  the main instrument hash, encoding audit and limitations.
+- **Status:** partial — main and prescreen survey instruments and the linked consent form read
+  on 2026-10-16. The user confirmed the local consent PDF was downloaded from the link in the
+  main instrument. Dataset-page metadata was not retrievable in this environment (WAF challenge).
+  See EXP-2026-10-15-multiselect-contracts for the main instrument hash, encoding audit and
+  limitations.
 - **Answers:** what is observed per panelist (survey answers, purchase history), column semantics
-  (`fields.csv`), how questions were asked (`survey-instrument.pdf`, `prescreen-survey-instrument.pdf`)
+  (`fields.csv`), how questions were asked (`survey-instrument.pdf`, `prescreen-survey-instrument.pdf`),
+  and the participant-facing consent scope (`consent-participate-research-Nov-2022.docx.pdf`)
 - **Notes:** contents — `survey.csv` (5,027 panelists × 23 columns), `amazon-purchases.csv`
   (1,850,717 rows; order date, unit price, quantity, shipping state, title, ASIN, category,
   response ID), `fields.csv` (question wording). Linked by `Survey ResponseID`. Dataset identity
-  and version: see `A-dataset-is-open-ecommerce` and `Q-dataset-version`. Data traps:
+  and version: see `A-dataset-is-open-ecommerce` and `Q-dataset-version`. The consent form states
+  that de-identified survey and purchase data may be made public and used for future research,
+  including research on inferring personal attributes from purchases; see
+  `data/raw/archive/consent-participate-research-Nov-2022.docx.pdf`, pp. 5–7. Data traps:
   `CAVEATS.yaml`, subjects `survey.csv:*` and `amazon-purchases.csv:*`.
 
 ## S-typesafe-jev-launch · TypeSafe blog: Introducing System One models and Jev

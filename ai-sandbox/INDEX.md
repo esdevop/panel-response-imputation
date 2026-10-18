@@ -1,6 +1,6 @@
 # panel-response-imputation — Session Index
 
-- **Updated:** 2026-10-16
+- **Updated:** 2026-10-17
 
 Entry point for every session. Loaded automatically through `AGENTS.md`.
 
@@ -51,9 +51,9 @@ Entry point for every session. Loaded automatically through `AGENTS.md`.
 
 Primary thread: implement the first baseline slice (random donor and mode) using the modular draft in
 `sessions/2026-10-14-modular-research-stack.md`; see `CHECKPOINT-baseline-ladder.md` and
-`OPEN_QUESTIONS.md` for remaining decisions. A second active thread, `response-signal`, is paused
-until the user's resolution of `Q-sensitive-targets` is documented; then open a follow-up session
-and specify a falsifiable item-level signal analysis. See `CHECKPOINT-response-signal.md`.
+`OPEN_QUESTIONS.md` for remaining decisions. The `response-signal` thread has promoted the survey
+schema and recorded the household/account wording caveat; next, resolve `Q-publication-boundary`
+before writing a delivery constraint or ADR. See `CHECKPOINT-response-signal.md`.
 
 ---
 

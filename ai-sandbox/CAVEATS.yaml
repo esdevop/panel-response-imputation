@@ -203,3 +203,20 @@
   basis: S-typesafe-docs
   status: inferred
   verify: count tokens with the vendor's tokenizer or API usage field rather than the chars/4 estimate
+
+- id: C-survey-targets-multiple-referents
+  subject: "survey.csv:Q-substance-use-cigarettes, Q-substance-use-marijuana, Q-substance-use-alcohol, Q-personal-diabetes, Q-personal-wheelchair, Q-life-changes"
+  kind: table
+  severity: moderate
+  what: >
+    The substance-use and personal-health questions ask whether an item applies to the respondent,
+    someone in their household, or someone sharing their Amazon account. A response does not identify
+    which person it refers to, so it is not evidence that the respondent personally has the stated
+    behavior or condition. Q-life-changes instead refers to the respondent or someone sharing the
+    Amazon account, without the general household wording. The retained Q-amazon-use-hh-size profile
+    feature counts household members but does not identify account sharers or resolve who a target
+    response describes. Interpret predictions as answers to the survey questions, not verified
+    individual-level traits.
+  found: 2026-10-16
+  basis: S-dataverse-yglydy §survey-instrument.pdf pp. 9–10
+  status: confirmed

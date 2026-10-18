@@ -1,6 +1,6 @@
 # panel-response-imputation — Claims Index
 
-- **Updated:** 2026-10-14
+- **Updated:** 2026-10-17
 
 > **An index, not a second copy.** One line per claim: a shorthand, the file it lives in, when
 > it landed, and what it rests on. The claim's actual wording stays in its file — restating it
@@ -61,4 +61,4 @@ this file already carries — not a silent drift.
 
 | Claim | File | Date | Basis | Does not license |
 |-------|------|------|-------|-------------------|
-| <shorthand, ~8 words> | `docs/method.md` | 2026-10-14 | `EXP-…` \| `S-…` \| `sessions/…` \| `ADR-…` | <optional — blank means no narrower scope to flag> |
+| Survey profile, target, and reporting partitions | `docs/method.md` | 2026-10-17 | `sessions/2026-10-17-sensitive-targets-scope-followup.md` | Does not license feature encoding, purchase-feature specification, predictive performance, or publication policy |

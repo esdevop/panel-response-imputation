@@ -2,17 +2,33 @@
 
 - **Held by:** esdevop@gmail.com · since 2026-10-16
 - **Status:** active
-- **Updated:** 2026-10-16
-- **Resume from:** document the user's independently reached resolution of `Q-sensitive-targets` before opening a follow-up session. The resolution is not yet known to the assistant; ask for its exact decision and basis rather than infer it.
-- **Do not do until re-verified:** do not claim raw-data predictive evidence; no respondent-level analysis has been run. Do not delete `Q-sensitive-targets` until its answer is recorded in the relevant session and any durable conclusion has an approved destination.
+- **Updated:** 2026-10-17
+- **Resume from:** resolve `Q-publication-boundary` before drafting a binding delivery constraint or
+  ADR. The user has supplied `esdevop` as the sign-off name for the schema/caveat promotion, but the
+  publication rule itself remains underspecified.
+- **Do not do until re-verified:** no raw-data predictive evidence exists and no respondent-level
+  analysis has been run. Do not evaluate the test split outside a final-evaluation experiment. Do
+  not describe household/account-inclusive answers as verified personal traits.
 
 ## Current state
 
-- Brainstorm session: `sessions/2026-10-16-response-signal-brainstorm.md` (closed). The raw instrument distinguishes individual, household, and shared-account questions. Purchase history plausibly offers different signal by item; no predictive claims are established.
-- Local source files inspected: `data/raw/fields.csv`, `data/raw/survey-instrument-extracted.txt`; raw archive exists at `data/raw/archive/dataverse_files.zip`. No raw data rows were analyzed.
-- Candidate follow-up: compare demographics-only, purchases-only, and combined features for a small, predeclared set of targets, including purchase-linked behaviors versus opinion items. Keep validation separate from the untouched test set. Exact targets, metrics, model, and kill criterion remain to be fixed before running.
-- User reports `Q-sensitive-targets` is resolved independently. Record the user's actual resolution first; then determine whether that resolution changes the candidate targets.
+- The user-approved survey schema and reporting partition are promoted to `docs/method.md`; the
+  household/account-inclusive wording trap is recorded in `CAVEATS.yaml`. See
+  `sessions/2026-10-17-sensitive-target-scope-promotion.md` and
+  `sessions/2026-10-17-sensitive-targets-scope-followup.md`.
+- The existing decision says not to publish respondent-level predictions. It does not specify
+  whether this bars private storage, restricted collaborator access, respondent-level figures, or
+  only public release; `Q-publication-boundary` tracks clarification. Do not turn an assumed meaning
+  into a binding constraint. An ADR also needs a qualifying independent reviewer; the provided
+  `esdevop` sign-off name alone does not satisfy that configuration.
+- Remaining study-design work: specify targets, metrics, model, and kill criterion for the
+  validation-only item-level signal analysis; define `Q-demos-race` feature encoding and
+  purchase-derived features. No performance claim is established, and the test split remains
+  reserved for final evaluation.
 
 ## Next
 
-Obtain and document the user's `Q-sensitive-targets` resolution in a dedicated follow-up session. Then agree a falsifiable experiment specification before any run. Do not modify `docs/` based on this brainstorm.
+Ask the user to define the no-publication boundary and whether non-identifying aggregate reporting is
+permitted. Then, if a binding policy is still wanted, arrange the required independent review and
+sign-off against exact wording. Separately specify the falsifiable validation-only signal analysis
+before any run; follow `ai-sandbox/playbooks/run-experiment.md`.

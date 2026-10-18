@@ -1,6 +1,6 @@
 # panel-response-imputation — Open Questions
 
-- **Updated:** 2026-10-14
+- **Updated:** 2026-10-17
 
 > **Open questions only.** A question leaves this file in one of two ways, and both are
 > deletions — status `Resolved` is never used, because a register of resolved entries is one
@@ -41,26 +41,17 @@ permanently. The handbook's §11 says why, and an adoption note in this file sho
 
 ---
 
-## Q-profile-vs-target-columns · Which survey columns are the profile and which are targets 🔴
+## Q-publication-boundary · What does the no-respondent-level-publication rule cover 🔴
 
-- **Raised:** 2026-10-14 · **Owner:** esdevop
-- **Source:** sessions/2026-10-14-project-scoping.md
-- **Question:** which columns of `survey.csv` form the demographic profile given to every method,
-  and which form the hidden response profile
-- **Why it matters:** blocks the feature table, the target table and every baseline
-- **Progress:** the eight `Q-demos-*` columns are the natural profile; Q-sexual-orientation is
-  ambiguous (not `Q-demos-*`, but demographic in kind). On 2026-10-15, binary representation
-  of multi-select targets was agreed; blank Q-life-changes maps to five eligible zeros.
-  See sessions/2026-10-14-modular-research-stack.md. Full column assignment remains open.
-
-## Q-sensitive-targets · Whether sensitive survey items should be imputation targets 🔴
-
-- **Raised:** 2026-10-14 · **Owner:** esdevop
-- **Source:** sessions/2026-10-14-project-scoping.md
-- **Question:** whether questions on health conditions, substance use and sexual orientation stay
-  in the target set, are reported separately, or are excluded
-- **Why it matters:** decides the target set and how results may be described or published
-- **Progress:** none
+- **Raised:** 2026-10-17 · **Owner:** esdevop
+- **Source:** sessions/2026-10-17-sensitive-target-scope-promotion.md
+- **Question:** does the ban apply only to public release of row-level predictions, or also to
+  repository/workspace storage, restricted collaborator access, per-respondent figures, or
+  aggregate results?
+- **Why it matters:** determines what may be stored, shared, presented, or released and is needed
+  before writing a binding delivery constraint or ADR
+- **Progress:** unresolved; the user asked to clarify the scope, but has not yet specified these
+  boundaries
 
 ## Q-metric-beyond-accuracy · Is accuracy the only metric 🟡
 
@@ -69,8 +60,9 @@ permanently. The handbook's §11 says why, and an adoption note in this file sho
 - **Question:** whether to add a secondary check that imputed answer shares match true shares
 - **Why it matters:** accuracy rewards predicting the most common answer for everyone, which
   hot-deck does not do by design; without a second check the comparison favours mode collapse
-- **Progress:** on the full survey, mode imputation averages 0.635 accuracy over 15 candidate
-  target questions vs 0.531 expected for random donor — a mode baseline is required in any case
+- **Progress:** the 0.635 mode and 0.531 random-donor figures are unverified results from the
+  earlier 15-question target set, not the current 11-question set. Recompute before using them as
+  current baselines; a mode baseline is still required.
 
 ## Q-category-grouping · How to group 1,872 purchase categories 🟡
 
